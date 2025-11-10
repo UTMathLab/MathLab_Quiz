@@ -1601,161 +1601,81 @@
     estree-walker "^2.0.2"
     picomatch "^4.0.2"
 
-"@rollup/rollup-android-arm-eabi@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.50.2.tgz#52d66eba5198155f265f54aed94d2489c49269f6"
-
 "@rollup/rollup-android-arm-eabi@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.52.5.tgz#0f44a2f8668ed87b040b6fe659358ac9239da4db"
-
-"@rollup/rollup-android-arm64@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm64/-/rollup-android-arm64-4.50.2.tgz#137e8153fc9ce6757531ce300b8d2262299f758e"
 
 "@rollup/rollup-android-arm64@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm64/-/rollup-android-arm64-4.52.5.tgz#25b9a01deef6518a948431564c987bcb205274f5"
 
-"@rollup/rollup-darwin-arm64@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.50.2.tgz#d4afd904386d37192cf5ef7345fdb0dd1bac0bc3"
-
 "@rollup/rollup-darwin-arm64@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.52.5.tgz#8a102869c88f3780c7d5e6776afd3f19084ecd7f"
-
-"@rollup/rollup-darwin-x64@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-darwin-x64/-/rollup-darwin-x64-4.50.2.tgz#6dbe83431fc7cbc09a2b6ed2b9fb7a62dd66ebc2"
 
 "@rollup/rollup-darwin-x64@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-darwin-x64/-/rollup-darwin-x64-4.52.5.tgz#8e526417cd6f54daf1d0c04cf361160216581956"
 
-"@rollup/rollup-freebsd-arm64@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-freebsd-arm64/-/rollup-freebsd-arm64-4.50.2.tgz#d35afb9f66154b557b3387d12450920f8a954b96"
-
 "@rollup/rollup-freebsd-arm64@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-freebsd-arm64/-/rollup-freebsd-arm64-4.52.5.tgz#0e7027054493f3409b1f219a3eac5efd128ef899"
-
-"@rollup/rollup-freebsd-x64@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-freebsd-x64/-/rollup-freebsd-x64-4.50.2.tgz#849303ecdc171a420317ad9166a70af308348f34"
 
 "@rollup/rollup-freebsd-x64@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-freebsd-x64/-/rollup-freebsd-x64-4.52.5.tgz#72b204a920139e9ec3d331bd9cfd9a0c248ccb10"
 
-"@rollup/rollup-linux-arm-gnueabihf@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-arm-gnueabihf/-/rollup-linux-arm-gnueabihf-4.50.2.tgz#ab36199ca613376232794b2f3ba10e2b547a447c"
-
 "@rollup/rollup-linux-arm-gnueabihf@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-arm-gnueabihf/-/rollup-linux-arm-gnueabihf-4.52.5.tgz#ab1b522ebe5b7e06c99504cc38f6cd8b808ba41c"
-
-"@rollup/rollup-linux-arm-musleabihf@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-arm-musleabihf/-/rollup-linux-arm-musleabihf-4.50.2.tgz#f3704bc2eaecd176f558dc47af64197fcac36e8a"
 
 "@rollup/rollup-linux-arm-musleabihf@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-arm-musleabihf/-/rollup-linux-arm-musleabihf-4.52.5.tgz#f8cc30b638f1ee7e3d18eac24af47ea29d9beb00"
 
-"@rollup/rollup-linux-arm64-gnu@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.50.2.tgz#dda0b06fd1daedd00b34395a2fb4aaaa2ed6c32b"
-
 "@rollup/rollup-linux-arm64-gnu@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.52.5.tgz#7af37a9e85f25db59dc8214172907b7e146c12cc"
-
-"@rollup/rollup-linux-arm64-musl@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-arm64-musl/-/rollup-linux-arm64-musl-4.50.2.tgz#a018de66209051dad0c58e689e080326c3dd15b0"
 
 "@rollup/rollup-linux-arm64-musl@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-arm64-musl/-/rollup-linux-arm64-musl-4.52.5.tgz#a623eb0d3617c03b7a73716eb85c6e37b776f7e0"
 
-"@rollup/rollup-linux-loong64-gnu@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-loong64-gnu/-/rollup-linux-loong64-gnu-4.50.2.tgz#6e514f09988615e0c98fa5a34a88a30fec64d969"
-
 "@rollup/rollup-linux-loong64-gnu@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-loong64-gnu/-/rollup-linux-loong64-gnu-4.52.5.tgz#76ea038b549c5c6c5f0d062942627c4066642ee2"
-
-"@rollup/rollup-linux-ppc64-gnu@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-ppc64-gnu/-/rollup-linux-ppc64-gnu-4.50.2.tgz#9b2efebc7b4a1951e684a895fdee0fef26319e0d"
 
 "@rollup/rollup-linux-ppc64-gnu@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-ppc64-gnu/-/rollup-linux-ppc64-gnu-4.52.5.tgz#d9a4c3f0a3492bc78f6fdfe8131ac61c7359ccd5"
 
-"@rollup/rollup-linux-riscv64-gnu@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-riscv64-gnu/-/rollup-linux-riscv64-gnu-4.50.2.tgz#a7104270e93d75789d1ba857b2c68ddf61f24f68"
-
 "@rollup/rollup-linux-riscv64-gnu@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-riscv64-gnu/-/rollup-linux-riscv64-gnu-4.52.5.tgz#87ab033eebd1a9a1dd7b60509f6333ec1f82d994"
-
-"@rollup/rollup-linux-riscv64-musl@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-riscv64-musl/-/rollup-linux-riscv64-musl-4.50.2.tgz#42d153f734a7b9fcacd764cc9bee6c207dca4db6"
 
 "@rollup/rollup-linux-riscv64-musl@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-riscv64-musl/-/rollup-linux-riscv64-musl-4.52.5.tgz#bda3eb67e1c993c1ba12bc9c2f694e7703958d9f"
 
-"@rollup/rollup-linux-s390x-gnu@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-s390x-gnu/-/rollup-linux-s390x-gnu-4.50.2.tgz#826ad73099f6fd57c083dc5329151b25404bc67d"
-
 "@rollup/rollup-linux-s390x-gnu@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-s390x-gnu/-/rollup-linux-s390x-gnu-4.52.5.tgz#f7bc10fbe096ab44694233dc42a2291ed5453d4b"
-
-"@rollup/rollup-linux-x64-gnu@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.50.2.tgz#b9ec17bf0ca3f737d0895fca2115756674342142"
 
 "@rollup/rollup-linux-x64-gnu@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.52.5.tgz#a151cb1234cc9b2cf5e8cfc02aa91436b8f9e278"
 
-"@rollup/rollup-linux-x64-musl@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.50.2.tgz#29fe0adb45a1d99042f373685efbac9cdd5354d9"
-
 "@rollup/rollup-linux-x64-musl@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.52.5.tgz#7859e196501cc3b3062d45d2776cfb4d2f3a9350"
-
-"@rollup/rollup-openharmony-arm64@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-openharmony-arm64/-/rollup-openharmony-arm64-4.50.2.tgz#29648f11e202736b74413f823b71e339e3068d60"
 
 "@rollup/rollup-openharmony-arm64@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-openharmony-arm64/-/rollup-openharmony-arm64-4.52.5.tgz#85d0df7233734df31e547c1e647d2a5300b3bf30"
 
-"@rollup/rollup-win32-arm64-msvc@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-arm64-msvc/-/rollup-win32-arm64-msvc-4.50.2.tgz#91e7edec80542fd81ab1c2581a91403ac63458ae"
-
 "@rollup/rollup-win32-arm64-msvc@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-arm64-msvc/-/rollup-win32-arm64-msvc-4.52.5.tgz#e62357d00458db17277b88adbf690bb855cac937"
-
-"@rollup/rollup-win32-ia32-msvc@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-ia32-msvc/-/rollup-win32-ia32-msvc-4.50.2.tgz#9b7cd9779f1147a3e8d3ddad432ae64dd222c4e9"
 
 "@rollup/rollup-win32-ia32-msvc@4.52.5":
   version "4.52.5"
@@ -1764,10 +1684,6 @@
 "@rollup/rollup-win32-x64-gnu@4.52.5":
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.52.5.tgz#1a22acfc93c64a64a48c42672e857ee51774d0d3"
-
-"@rollup/rollup-win32-x64-msvc@4.50.2":
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.50.2.tgz#40ecd1357526fe328c7af704a283ee8533ca7ad6"
 
 "@rollup/rollup-win32-x64-msvc@4.52.5":
   version "4.52.5"
@@ -2201,55 +2117,55 @@
   dependencies:
     "@rolldown/pluginutils" "1.0.0-beta.29"
 
-"@vitest/expect@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@vitest/expect/-/expect-4.0.4.tgz#ba98573c19f568ce8ad0377ebbb5689883a2f053"
+"@vitest/expect@4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@vitest/expect/-/expect-4.0.8.tgz#02df33fb1f99091df660a80b7113e6d2f176ee10"
   dependencies:
     "@standard-schema/spec" "^1.0.0"
     "@types/chai" "^5.2.2"
-    "@vitest/spy" "4.0.4"
-    "@vitest/utils" "4.0.4"
-    chai "^6.0.1"
+    "@vitest/spy" "4.0.8"
+    "@vitest/utils" "4.0.8"
+    chai "^6.2.0"
     tinyrainbow "^3.0.3"
 
-"@vitest/mocker@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@vitest/mocker/-/mocker-4.0.4.tgz#d3366047e1f075874d35d40218e49266dfa2e561"
+"@vitest/mocker@4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@vitest/mocker/-/mocker-4.0.8.tgz#8fe875716e742635beb132a5e93ef8c151b0a4ec"
   dependencies:
-    "@vitest/spy" "4.0.4"
+    "@vitest/spy" "4.0.8"
     estree-walker "^3.0.3"
-    magic-string "^0.30.19"
+    magic-string "^0.30.21"
 
-"@vitest/pretty-format@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@vitest/pretty-format/-/pretty-format-4.0.4.tgz#19ffa9fb35853554e272799b68743717dc2ec1b7"
+"@vitest/pretty-format@4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@vitest/pretty-format/-/pretty-format-4.0.8.tgz#752866f7dc62aa448af34404b2f9f1a4e1e6f656"
   dependencies:
     tinyrainbow "^3.0.3"
 
-"@vitest/runner@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@vitest/runner/-/runner-4.0.4.tgz#ca0eb9de67bdfe6c6cb0841a23f47474af92dbf9"
+"@vitest/runner@4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@vitest/runner/-/runner-4.0.8.tgz#bfa9605eb5dc498dda8abe66d900caef31269ff6"
   dependencies:
-    "@vitest/utils" "4.0.4"
+    "@vitest/utils" "4.0.8"
     pathe "^2.0.3"
 
-"@vitest/snapshot@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@vitest/snapshot/-/snapshot-4.0.4.tgz#ea90222f94da640481c8809e87597171b049c727"
+"@vitest/snapshot@4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@vitest/snapshot/-/snapshot-4.0.8.tgz#3ec18bdfa96f8e383d12f156d1c73c7dcfe1fd3d"
   dependencies:
-    "@vitest/pretty-format" "4.0.4"
-    magic-string "^0.30.19"
+    "@vitest/pretty-format" "4.0.8"
+    magic-string "^0.30.21"
     pathe "^2.0.3"
 
-"@vitest/spy@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@vitest/spy/-/spy-4.0.4.tgz#b20b8736cdfd1774e38bceeadac1936d9b7653bf"
+"@vitest/spy@4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@vitest/spy/-/spy-4.0.8.tgz#d8f071143901bd2ee31a805b468c054e481ec615"
 
-"@vitest/utils@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-4.0.4.tgz#90d355d0f21596a06eca83f84783a29467513d6a"
+"@vitest/utils@4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-4.0.8.tgz#00dcf405df47a64157c0edcc3832f678ab577cef"
   dependencies:
-    "@vitest/pretty-format" "4.0.4"
+    "@vitest/pretty-format" "4.0.8"
     tinyrainbow "^3.0.3"
 
 "@volar/language-core@2.4.23":
@@ -2803,7 +2719,7 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001702, caniuse-lite@^1.0.30001737:
   version "1.0.30001741"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001741.tgz#67fb92953edc536442f3c9da74320774aa523143"
 
-chai@^6.0.1:
+chai@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/chai/-/chai-6.2.0.tgz#181bca6a219cddb99c3eeefb82483800ffa550ce"
 
@@ -5967,36 +5883,7 @@ rollup-plugin-visualizer@^6.0.5:
     source-map "^0.7.4"
     yargs "^17.5.1"
 
-rollup@^4.43.0:
-  version "4.50.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-4.50.2.tgz#938d898394939f3386d1e367ee6410a796b8f268"
-  dependencies:
-    "@types/estree" "1.0.8"
-  optionalDependencies:
-    "@rollup/rollup-android-arm-eabi" "4.50.2"
-    "@rollup/rollup-android-arm64" "4.50.2"
-    "@rollup/rollup-darwin-arm64" "4.50.2"
-    "@rollup/rollup-darwin-x64" "4.50.2"
-    "@rollup/rollup-freebsd-arm64" "4.50.2"
-    "@rollup/rollup-freebsd-x64" "4.50.2"
-    "@rollup/rollup-linux-arm-gnueabihf" "4.50.2"
-    "@rollup/rollup-linux-arm-musleabihf" "4.50.2"
-    "@rollup/rollup-linux-arm64-gnu" "4.50.2"
-    "@rollup/rollup-linux-arm64-musl" "4.50.2"
-    "@rollup/rollup-linux-loong64-gnu" "4.50.2"
-    "@rollup/rollup-linux-ppc64-gnu" "4.50.2"
-    "@rollup/rollup-linux-riscv64-gnu" "4.50.2"
-    "@rollup/rollup-linux-riscv64-musl" "4.50.2"
-    "@rollup/rollup-linux-s390x-gnu" "4.50.2"
-    "@rollup/rollup-linux-x64-gnu" "4.50.2"
-    "@rollup/rollup-linux-x64-musl" "4.50.2"
-    "@rollup/rollup-openharmony-arm64" "4.50.2"
-    "@rollup/rollup-win32-arm64-msvc" "4.50.2"
-    "@rollup/rollup-win32-ia32-msvc" "4.50.2"
-    "@rollup/rollup-win32-x64-msvc" "4.50.2"
-    fsevents "~2.3.2"
-
-rollup@^4.52.5:
+rollup@^4.43.0, rollup@^4.52.5:
   version "4.52.5"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-4.52.5.tgz#96982cdcaedcdd51b12359981f240f94304ec235"
   dependencies:
@@ -7129,9 +7016,9 @@ vite-plugin-vue-tracer@^1.0.1:
     pathe "^2.0.3"
     source-map-js "^1.2.1"
 
-"vite@^5.0.0 || ^6.0.0 || ^7.0.0-0", "vite@^6.0.0 || ^7.0.0", vite@^7.1.12:
-  version "7.1.12"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-7.1.12.tgz#8b29a3f61eba23bcb93fc9ec9af4a3a1e83eecdb"
+"vite@^5.0.0 || ^6.0.0 || ^7.0.0-0", "vite@^6.0.0 || ^7.0.0", vite@^7.1.12, vite@^7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-7.2.2.tgz#17dd62eac2d0ca0fa90131c5f56e4fefb8845362"
   dependencies:
     esbuild "^0.25.0"
     fdir "^6.5.0"
@@ -7142,24 +7029,24 @@ vite-plugin-vue-tracer@^1.0.1:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vitest@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/vitest/-/vitest-4.0.4.tgz#92f8ed44110292c80efadc03bb6fa735ebefa414"
+vitest@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/vitest/-/vitest-4.0.8.tgz#0c61a81261cf51450c70bc3c9a05a31d8526b14d"
   dependencies:
-    "@vitest/expect" "4.0.4"
-    "@vitest/mocker" "4.0.4"
-    "@vitest/pretty-format" "4.0.4"
-    "@vitest/runner" "4.0.4"
-    "@vitest/snapshot" "4.0.4"
-    "@vitest/spy" "4.0.4"
-    "@vitest/utils" "4.0.4"
+    "@vitest/expect" "4.0.8"
+    "@vitest/mocker" "4.0.8"
+    "@vitest/pretty-format" "4.0.8"
+    "@vitest/runner" "4.0.8"
+    "@vitest/snapshot" "4.0.8"
+    "@vitest/spy" "4.0.8"
+    "@vitest/utils" "4.0.8"
     debug "^4.4.3"
     es-module-lexer "^1.7.0"
     expect-type "^1.2.2"
-    magic-string "^0.30.19"
+    magic-string "^0.30.21"
     pathe "^2.0.3"
     picomatch "^4.0.3"
-    std-env "^3.9.0"
+    std-env "^3.10.0"
     tinybench "^2.9.0"
     tinyexec "^0.3.2"
     tinyglobby "^0.2.15"

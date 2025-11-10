@@ -18,7 +18,7 @@
     "nanoid": "^5.1.6",
     "nuxt": "^4.2.0",
     "undici": "^7.16.0",
-    "vite": "^7.1.12",
+    "vite": "^7.2.2",
     "vue": "latest"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "prettier": "^3.3.3",
     "sass-embedded": "^1.93.2",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.4",
+    "vitest": "^4.0.8",
     "vue-test-utils": "^1.0.0-beta.11"
   },
   "volta": {
