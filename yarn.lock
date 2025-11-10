@@ -3194,7 +3194,7 @@ detect-libc@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.0.4.tgz#f04715b8ba815e53b4d8109655b6508a6865a7e8"
 
-devalue@^5.3.2, devalue@^5.4.2:
+devalue@^5.4.2:
   version "5.4.2"
   resolved "https://registry.yarnpkg.com/devalue/-/devalue-5.4.2.tgz#d002d836f9e92fc0c3bd9b76ea69129cbf99dca7"
 
@@ -6088,85 +6088,85 @@ safe-regex@^2.1.1:
   dependencies:
     regexp-tree "~0.1.1"
 
-sass-embedded-all-unknown@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-all-unknown/-/sass-embedded-all-unknown-1.92.1.tgz#4868c4d36b8a5b75c95f21bda7fbcd93d50ee107"
+sass-embedded-all-unknown@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-all-unknown/-/sass-embedded-all-unknown-1.93.2.tgz#dd9207a0dd4eea2f14774359e1d37efc61c7a63c"
   dependencies:
-    sass "1.92.1"
+    sass "1.93.2"
 
-sass-embedded-android-arm64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-android-arm64/-/sass-embedded-android-arm64-1.92.1.tgz#e7480e3d9ddd12f11b2e7e026c9780165cdf2b52"
+sass-embedded-android-arm64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-android-arm64/-/sass-embedded-android-arm64-1.93.2.tgz#e5a6a7c9e98d4b4b12f2cb5e9f340564193a9ee4"
 
-sass-embedded-android-arm@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-android-arm/-/sass-embedded-android-arm-1.92.1.tgz#2da973d8312178e07d1e7f97eda9e277fa218fb7"
+sass-embedded-android-arm@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-android-arm/-/sass-embedded-android-arm-1.93.2.tgz#5970c732137b0a1abbb889305c462cf2ab11b91e"
 
-sass-embedded-android-riscv64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-android-riscv64/-/sass-embedded-android-riscv64-1.92.1.tgz#901df6a4e334573a39ece5fda5c84d0b91596cf0"
+sass-embedded-android-riscv64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-android-riscv64/-/sass-embedded-android-riscv64-1.93.2.tgz#0b52b538729237cd08efc008fd39291ea36e058d"
 
-sass-embedded-android-x64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-android-x64/-/sass-embedded-android-x64-1.92.1.tgz#fde3804bdb8671ace235602be7fb9f268beb4cc5"
+sass-embedded-android-x64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-android-x64/-/sass-embedded-android-x64-1.93.2.tgz#793483a0a4848d06cd4f0cb44d2e0ebc906c0a20"
 
-sass-embedded-darwin-arm64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-darwin-arm64/-/sass-embedded-darwin-arm64-1.92.1.tgz#776c578076d5ee6b6b9aa470f9ac31ac14dfbbbe"
+sass-embedded-darwin-arm64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-darwin-arm64/-/sass-embedded-darwin-arm64-1.93.2.tgz#03c2832c9e9b1e42563c36e7636e01bd724da134"
 
-sass-embedded-darwin-x64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-darwin-x64/-/sass-embedded-darwin-x64-1.92.1.tgz#697bb8151af5e853287b8f73eebcef17fe111cb5"
+sass-embedded-darwin-x64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-darwin-x64/-/sass-embedded-darwin-x64-1.93.2.tgz#492f8e46ee0790b22c5119c9f2e729ae78cb24c7"
 
-sass-embedded-linux-arm64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-linux-arm64/-/sass-embedded-linux-arm64-1.92.1.tgz#748775c27bf4fc452f647e09f7618f85839619a1"
+sass-embedded-linux-arm64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-linux-arm64/-/sass-embedded-linux-arm64-1.93.2.tgz#144a4a056778c17011726885b0f94fccb6f389f7"
 
-sass-embedded-linux-arm@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-linux-arm/-/sass-embedded-linux-arm-1.92.1.tgz#610072a0a208c9ca12d06b58f1a3278ed59967ca"
+sass-embedded-linux-arm@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-linux-arm/-/sass-embedded-linux-arm-1.93.2.tgz#0df4594316c3b21b18bf60c8d75e2acddda09ef0"
 
-sass-embedded-linux-musl-arm64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-linux-musl-arm64/-/sass-embedded-linux-musl-arm64-1.92.1.tgz#c87667b812c9123769a84a594a79d1a0b9e8cc70"
+sass-embedded-linux-musl-arm64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-linux-musl-arm64/-/sass-embedded-linux-musl-arm64-1.93.2.tgz#212a5107f9d05853236def3cee40cba35ff6dd7b"
 
-sass-embedded-linux-musl-arm@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-linux-musl-arm/-/sass-embedded-linux-musl-arm-1.92.1.tgz#08bc0a51108dbf9f798eee31fd2283ee6e742cca"
+sass-embedded-linux-musl-arm@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-linux-musl-arm/-/sass-embedded-linux-musl-arm-1.93.2.tgz#29ebecef7ed479d0441b1cb8305c59724816fd07"
 
-sass-embedded-linux-musl-riscv64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-linux-musl-riscv64/-/sass-embedded-linux-musl-riscv64-1.92.1.tgz#b792e99025c5eb659aa91d3115263445c1d02190"
+sass-embedded-linux-musl-riscv64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-linux-musl-riscv64/-/sass-embedded-linux-musl-riscv64-1.93.2.tgz#935da64e1f8e10e9a0a0d045b2e2a78a26d26267"
 
-sass-embedded-linux-musl-x64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-linux-musl-x64/-/sass-embedded-linux-musl-x64-1.92.1.tgz#49e935afd0f12a2742c51d50dda18747c58de222"
+sass-embedded-linux-musl-x64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-linux-musl-x64/-/sass-embedded-linux-musl-x64-1.93.2.tgz#0f6a79b54ab7393376f7a7a4d19e8b5f6752db37"
 
-sass-embedded-linux-riscv64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-linux-riscv64/-/sass-embedded-linux-riscv64-1.92.1.tgz#ab1b96062f60e461739ccd8be58f2aee8113c610"
+sass-embedded-linux-riscv64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-linux-riscv64/-/sass-embedded-linux-riscv64-1.93.2.tgz#d98024c3a7dfac5d7410a75ca3cc1a7ff86ec3b7"
 
-sass-embedded-linux-x64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-linux-x64/-/sass-embedded-linux-x64-1.92.1.tgz#f6c427318d8b79fb27def4f4816d84c1b2b8cdc3"
+sass-embedded-linux-x64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-linux-x64/-/sass-embedded-linux-x64-1.93.2.tgz#d38476e53ba26b98c960dadd94f6d182566d69d0"
 
-sass-embedded-unknown-all@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-unknown-all/-/sass-embedded-unknown-all-1.92.1.tgz#e81cb250e8914ecb86e0c6d5f5af95e6371a2c8c"
+sass-embedded-unknown-all@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-unknown-all/-/sass-embedded-unknown-all-1.93.2.tgz#51d0618999426bf311d16e48d7b53c208c26b514"
   dependencies:
-    sass "1.92.1"
+    sass "1.93.2"
 
-sass-embedded-win32-arm64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-win32-arm64/-/sass-embedded-win32-arm64-1.92.1.tgz#4173b7a31e1a8a529c213eccf176c8d32edcf49c"
+sass-embedded-win32-arm64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-win32-arm64/-/sass-embedded-win32-arm64-1.93.2.tgz#806310afadb2e040204878718180b10828651d8a"
 
-sass-embedded-win32-x64@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded-win32-x64/-/sass-embedded-win32-x64-1.92.1.tgz#bd0f8cefef62d88122ffd77ae549c7a2df5cd212"
+sass-embedded-win32-x64@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded-win32-x64/-/sass-embedded-win32-x64-1.93.2.tgz#4bc3cefd0e79106d4d15074fed6dd99d0a782b32"
 
-sass-embedded@^1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass-embedded/-/sass-embedded-1.92.1.tgz#f00d2a9de5cd89621b1bd25cdb09825ee7387114"
+sass-embedded@^1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass-embedded/-/sass-embedded-1.93.2.tgz#8747862cfe2e3e70772a309223984681bf33f499"
   dependencies:
     "@bufbuild/protobuf" "^2.5.0"
     buffer-builder "^0.2.0"
@@ -6177,28 +6177,28 @@ sass-embedded@^1.92.1:
     sync-child-process "^1.0.2"
     varint "^6.0.0"
   optionalDependencies:
-    sass-embedded-all-unknown "1.92.1"
-    sass-embedded-android-arm "1.92.1"
-    sass-embedded-android-arm64 "1.92.1"
-    sass-embedded-android-riscv64 "1.92.1"
-    sass-embedded-android-x64 "1.92.1"
-    sass-embedded-darwin-arm64 "1.92.1"
-    sass-embedded-darwin-x64 "1.92.1"
-    sass-embedded-linux-arm "1.92.1"
-    sass-embedded-linux-arm64 "1.92.1"
-    sass-embedded-linux-musl-arm "1.92.1"
-    sass-embedded-linux-musl-arm64 "1.92.1"
-    sass-embedded-linux-musl-riscv64 "1.92.1"
-    sass-embedded-linux-musl-x64 "1.92.1"
-    sass-embedded-linux-riscv64 "1.92.1"
-    sass-embedded-linux-x64 "1.92.1"
-    sass-embedded-unknown-all "1.92.1"
-    sass-embedded-win32-arm64 "1.92.1"
-    sass-embedded-win32-x64 "1.92.1"
+    sass-embedded-all-unknown "1.93.2"
+    sass-embedded-android-arm "1.93.2"
+    sass-embedded-android-arm64 "1.93.2"
+    sass-embedded-android-riscv64 "1.93.2"
+    sass-embedded-android-x64 "1.93.2"
+    sass-embedded-darwin-arm64 "1.93.2"
+    sass-embedded-darwin-x64 "1.93.2"
+    sass-embedded-linux-arm "1.93.2"
+    sass-embedded-linux-arm64 "1.93.2"
+    sass-embedded-linux-musl-arm "1.93.2"
+    sass-embedded-linux-musl-arm64 "1.93.2"
+    sass-embedded-linux-musl-riscv64 "1.93.2"
+    sass-embedded-linux-musl-x64 "1.93.2"
+    sass-embedded-linux-riscv64 "1.93.2"
+    sass-embedded-linux-x64 "1.93.2"
+    sass-embedded-unknown-all "1.93.2"
+    sass-embedded-win32-arm64 "1.93.2"
+    sass-embedded-win32-x64 "1.93.2"
 
-sass@1.92.1:
-  version "1.92.1"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.92.1.tgz#07fb1fec5647d7b712685d1090628bf52456fe86"
+sass@1.93.2:
+  version "1.93.2"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.93.2.tgz#e97d225d60f59a3b3dbb6d2ae3c1b955fd1f2cd1"
   dependencies:
     chokidar "^4.0.0"
     immutable "^5.0.2"
