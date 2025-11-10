@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - release # releaseブランチにプッシュされたときに実行されます
+      - release
 
 permissions:
   contents: write
@@ -23,26 +23,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: "24" # 使用しているNode.jsのバージョンを指定
+          node-version: "24"
 
       - name: Install dependencies
-        run: yarn install # Yarnで依存関係をインストール
+        run: yarn install
 
       - name: Build the project
-        run: yarn generate # Nuxt.jsの静的ファイルを生成
+        run: yarn generate
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: gh-pages # 必要に応じてブランチ名を変更
-          force_orphan: true # 新しいブランチを作成する設定
-
-      - name: Clean before deploy
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch --prune --unshallow
-          git reset --hard
-          git clean -fdx
+          publish_branch: gh-pages
+          force_orphan: true
