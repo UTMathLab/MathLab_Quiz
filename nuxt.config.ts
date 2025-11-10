@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   target: 'static',
   router: {
-    base: '/KF75-Quiz/'
+    base: '/Mathlab-Quiz/'
   },
   generate: {
     dir: 'docs', // 出力先フォルダを 'dist' から 'docs' に変更
@@ -25,6 +25,6 @@ export default defineNuxtConfig({
   },
   ssr: false,
   app: {
-    baseURL: '/KF75-Quiz/',
+    baseURL: '/Mathlab-Quiz/',
   }
 });
