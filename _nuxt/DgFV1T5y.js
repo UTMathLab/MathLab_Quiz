@@ -1,0 +1,1 @@
+import"./CjY2riWP.js";const e=o=>{const r=[...o];for(let t=r.length-1;t>=0;t--){const a=Math.floor(Math.random()*(t+1));[r[t],r[a]]=[r[a],r[t]]}return r},s=(o,r)=>e(o).slice(0,r),l=globalThis.setInterval;export{s as g,l as s};
