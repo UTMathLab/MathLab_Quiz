@@ -19,10 +19,10 @@ export default defineNuxtConfig({
   ssr: false,
 
   app: {
-    baseURL: '/Mathlab-Quiz/',  
+    baseURL: '/MathLab-Quiz/',  
     buildAssetsDir: 'assets/',
     head: {                               
-      base: { href: '/Mathlab-Quiz/' }
+      base: { href: '/MathLab-Quiz/' }
     }
   }
 })
