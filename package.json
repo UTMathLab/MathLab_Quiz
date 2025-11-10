@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@babel/helpers": "^7.28.4",
-    "@eslint/plugin-kit": "^0.3.5",
+    "@eslint/plugin-kit": "^0.4.1",
     "brace-expansion": "^4.0.1",
     "cross-spawn": "^7.0.6",
     "devalue": "^5.4.2",
