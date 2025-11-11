@@ -3,20 +3,8 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: daily
-    open-pull-requests-limit: 5
-    groups:
-      eslint-deps:
-        patterns:
-          - "eslint*"
-          - "@typescript-eslint/*"
-      vue-nuxt:
-        patterns:
-          - "nuxt"
-          - "vue*"
-          - "@vue/*"
-      tooling:
-        patterns:
-          - "vite*"
-          - "vitest*"
-          - "typescript"
+      interval: weekly
+    versioning-strategy: increase-if-necessary
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
