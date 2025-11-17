@@ -8,5 +8,6 @@
         font-weight:bold;
         -webkit-text-stroke: 1.5px #FFFFFF;
         font-family: sans-serif;
+        z-index:2;
     }
 </style>

@@ -1,21 +1,74 @@
 <template>
   <div>
     <a-background />
-    <t-menu v-if="displayState === 'menu'" @select="onLevelSelected" :Levels=Levels></t-menu>
-    <t-question v-else-if="displayState === 'question'" :count="count - incorrectCount*5" :correctIndex="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].answer" :quizIndex="quizIndex" :quizNumber=shuffledNumber[quizLevel][quizIndex] :correctNumber="correctCount" :answerDisplay="answerDisplay" :correctDisplay="correctDisplay" :incorrectDisplay="incorrectDisplay" :question="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].question" :options="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].options" :fontSize="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].fontSize" :answer="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].options[quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].answer]" @select="onSelected" @timeout="timeout" @quit="onQuit" />
-    <t-result v-else-if="displayState === 'result'" :correct-count="correctCount" :ranking="ranking_view" @select="playAgain" />
+    
+    <t-menu v-if="displayState === 'menu'" @select="onLevelSelected" :Levels="Levels"></t-menu>
+    
+    <t-question v-else-if="displayState === 'question' && quizData.length > 0" 
+      :count="count - incorrectCount*5" 
+      :correctIndex="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].answer" 
+      :quizIndex="quizIndex" 
+      :quizNumber="shuffledNumber[quizLevel][quizIndex]" 
+      :correctNumber="correctCount" 
+      :answerDisplay="answerDisplay" 
+      :correctDisplay="correctDisplay" 
+      :incorrectDisplay="incorrectDisplay" 
+      :question="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].question" 
+      :options="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].options" 
+      :fontSize="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].fontSize" 
+      :answer="quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].options[quizData[quizLevel][shuffledNumber[quizLevel][quizIndex]].answer]" 
+      @select="onSelected" 
+      @timeout="timeout" 
+      @quit="onQuit" />
+      
+    <t-result v-else-if="displayState === 'result'" 
+      :correct-count="correctCount" 
+      :ranking="ranking_view" 
+      :is-loading="isLoadingRanking" 
+      @select="playAgain" />
+    
+    <div v-if="isQuizLoading" class="loading-quiz-overlay">
+      クイズデータを読み込んでいます...
+    </div>
   </div>
 </template>
+
+<style>
+.loading-quiz-overlay {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  color: white !important;
+  font-size: 2em !important;
+  font-weight: bold !important;
+  position: fixed !important; 
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 9999 !important;
+  background: rgba(0,0,0,0.7) !important;
+  cursor: wait !important;
+}
+</style>
 
 <!-- pages/index.vue の <script setup> の中身を、以下で丸ごと置き換え -->
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
+  // ★ "onUnmounted" を import に追加
+  import { ref, onMounted, onUnmounted} from 'vue' 
   import { getRandomArray } from "../composables/utils";
-  import { quizData } from "../composables/quizData";
   
   import { initializeApp } from "firebase/app";
   import { getFirestore, collection, addDoc, query, where, orderBy, limit, getDocs } from "firebase/firestore";
+
+  type Quiz = {
+    quizNumber: number;
+    question: string;
+    options: string[];
+    answer: number;
+    fontSize: string;
+  };
 
   // Your web app's Firebase configuration
   const firebaseConfig = {
@@ -34,7 +87,51 @@
 
   type DisplayState = "question" | "result" | "menu";
   const displayState = ref<DisplayState>("menu");
+  const isQuizLoading = ref(true);
   const isLoadingRanking = ref(false);
+  
+  const quizData = ref<Quiz[][]>([]);
+  const shuffledNumber = ref<number[][]>([]);
+
+  const config = useRuntimeConfig();
+  const quizDataUrl = config.public.quizDataUrl as string;
+  
+  // ★ timerId を script のトップレベルで定義
+  let timerId: any = null;
+
+  // ★ onMounted (クイズデータ取得 と タイマー開始)
+  onMounted(() => {
+    // 1. タイマーを開始
+    countdown(); 
+
+    // 2. クイズデータをロード
+    useFetch<Quiz[][]>(quizDataUrl, {
+      onResponse({ response }) {
+        const data = response._data;
+        quizData.value = data; 
+        const randomIndex = data.map((qs: Quiz[]) => Array.from({ length: qs.length }, (_, i) => i));
+        shuffledNumber.value = randomIndex.map((arr: number[]) => getRandomArray(arr, arr.length));
+        isQuizLoading.value = false;
+      },
+      onError(error) {
+        console.error("Failed to fetch quiz data:", error);
+        isQuizLoading.value = false;
+      }
+    });
+  });
+
+  // ★★★
+  // 修正点 1： onUnmounted フックを追加
+  // (開発リロード時やページ移動時にタイマーを停止する)
+  // ★★★
+  onUnmounted(() => {
+    if (timerId) {
+      clearInterval(timerId);
+    }
+  });
+
+  // (createWhenObject, fetchRanking, handleGameEnd は 20:38 のコードから変更なし)
+  // ... (createWhenObject, fetchRanking, handleGameEnd のコード) ...
   
   const createWhenObject = (playtime: Date) => {
     const year = playtime.getFullYear();
@@ -42,56 +139,32 @@
     const day = playtime.getDate();
     const hour = playtime.getHours();
     const minute = playtime.getMinutes();
-    
-    // ★★★
-    // 修正点：秒 (getSeconds) を追加
-    // ★★★
     const second = playtime.getSeconds(); 
-    
-    // ★ sortdata の計算に「*100 + second」を追加
-    const sortdata = year * 10000000000 + // (0を2つ追加)
-                     month * 100000000 +  // (0を2つ追加)
-                     day * 1000000 +    // (0を2つ追加)
-                     hour * 10000 +     // (0を2つ追加)
+    const sortdata = year * 10000000000 +
+                     month * 100000000 +
+                     day * 1000000 +
+                     hour * 10000 +
                      minute * 100 + 
-                     second; // ★ 秒を追加
-                     
-    return { year, month, day, hour, minute, 
-             // ★ second も返すが、sortdata があれば不要
-             sortdata: sortdata 
-           };
+                     second;
+    return { year, month, day, hour, minute, sortdata: sortdata };
   };
-
-  const randomIndex = quizData.map(qs => Array.from({ length: qs.length }, (_, i) => i));
-  const shuffledNumber = ref(randomIndex.map(arr => getRandomArray(arr, arr.length)));
 
   const quizLevel= ref(0);
   const Levels = [["6級", "小中学生初級", "制限時間：60秒"],["5級","小中学生上級","制限時間：60秒"],["4級","高校生初級","制限時間：60秒"],["3級", "高校生上級", "制限時間：60秒"],["2級","大学生初級","制限時間：60秒"],["1級","大学生上級","制限時間：60秒"]];
   const ranking_view=ref<any[]>([]);
   
-  // -----------------------------------------------------------------
-  // ★ 1. ランキング取得 (Firebase)
-  // -----------------------------------------------------------------
   const fetchRanking = async (level: number, userResult: any | null = null) => {
-    // isLoadingRanking.value = true; // (もし isLoading を使う場合は、ここを有効化)
-    
+    isLoadingRanking.value = true;
+    ranking_view.value = []; 
     try {
       const q = query(
         collection(db, "kf75"), 
         where('level', '==', level),
-        orderBy('score', 'desc'), // 第1キー：スコア（降順）
-        
-        // ★★★
-        // 修正点：第2キーとして「達成日時(sortdata)」の「昇順(asc)」を追加
-        // これで、達成日時が古い方（時間が遅い方）が上になります
-        // ★★★
+        orderBy('score', 'desc'),
         orderBy('when.sortdata', 'asc'), 
-        
         limit(6)
       );
-      
       const querySnapshot = await getDocs(q);
-      
       const newRankingView: any[] = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
@@ -103,58 +176,55 @@
         }
         newRankingView.push({ score: data.score, when: data.when, color: color });
       });
-      
       ranking_view.value = newRankingView;
-      
     } catch (error) {
       console.error("Firebaseの読み込みエラー:", error);
       ranking_view.value = [];
     } finally {
-      // isLoadingRanking.value = false; // (もし isLoading を使う場合は、ここを有効化)
+      isLoadingRanking.value = false;
     }
   };
-
-  // -----------------------------------------------------------------
-  // ★ 2. ゲーム終了処理 (Firebase)
-  // -----------------------------------------------------------------
+  
   const handleGameEnd = async () => {
     if (displayState.value !== "question") return; 
 
-    displayState.value = "result";
-    // (タイマー停止は、setInterval 側が displayState を見て自動で停止する)
-    count.value = 60; // カウントリセット
+    // ★★★
+    // 修正点 2： handleGameEnd でもタイマーを停止
+    // ★★★
+    if (timerId) {
+      clearInterval(timerId);
+      timerId = null;
+    }
     
+    displayState.value = "result";
+    count.value = 60;
     const playtime = new Date();
     const newScoreData = {
       level: quizLevel.value,
       score: correctCount.value, 
       when: createWhenObject(playtime)
     };
-
     try {
       await addDoc(collection(db, "kf75"), newScoreData);
     } catch (error) {
       console.error("Firebaseへの書き込みエラー:", error);
     } finally {
-      // 書き込み後、最新ランキングを読み込む
       await fetchRanking(newScoreData.level, newScoreData);
     }
   };
 
-  // -----------------------------------------------------------------
-  // ★ 3. onLevelSelected
-  // -----------------------------------------------------------------
-  const onLevelSelected = (level:number) => {
+  // (onLevelSelected は変更なし)
+ const onLevelSelected = (level:number) => {
+    if (isQuizLoading.value || quizData.value.length === 0) {
+      return; 
+    }
     quizLevel.value = level;
     displayState.value = "question";
-    shuffledNumber.value = randomIndex.map(arr => getRandomArray(arr, arr.length));
+    const randomIndex = quizData.value.map((qs: Quiz[]) => Array.from({ length: qs.length }, (_, i) => i));
+    shuffledNumber.value = randomIndex.map((arr: number[]) => getRandomArray(arr, arr.length));
     count.value = 60; 
     questionTime.value = Date.now();
-    
-    // (ゲーム開始時は、ランキングを読み込まない)
-    // (Firebaseの「リアルタイム更新」を使わない限り、
-    //  ここで読んでも "今" のランキングは取れないため)
-    ranking_view.value = [];
+    fetchRanking(quizLevel.value);
   }
 
   const quizIndex = ref(0);
@@ -162,54 +232,36 @@
   const incorrectCount = ref(0);
   const answerState = ref<"正解！" | "不正解" >(null as any);
   const count = ref(60);
+  const answerDisplay = ref(false);
+  const correctDisplay = ref(false);
+  const incorrectDisplay = ref(false);
+  const questionTime = ref(0);
+  const answerTime = ref(0);
   
-  // (タイマーIDは不要)
-  
-  // -----------------------------------------------------------------
-  // ★ 4. countdown (元の「正しい」ロジックに戻す)
-  // -----------------------------------------------------------------
+  // (countdown は変更なし)
   const countdown = () => {
-    setInterval(() => {
-      // ★ 門番： "question" 画面で、かつ "result" 処理中でない時だけ動く
+    // ★ timerId に格納する
+    timerId = setInterval(() => {
       if (displayState.value === "question") {
-        
-        // タイムアップ判定
         if (count.value <= incorrectCount.value * 5){
           if (displayState.value === "question") { 
             handleGameEnd();
           }
           return;
         }
-        
-        // カウントダウン
         if (count.value > 0) {
           count.value--;
         };
       }
     }, 1000);
   };
+  // (onMounted は countdown() と useFetch() を 1つにまとめた)
 
-  // ★ 元のコード通り onMounted で「1回だけ」呼び出す
-  onMounted(() => {
-    countdown();
-  })
-
-  // (answerDisplay などの ref)
-  const answerDisplay = ref(false);
-  const correctDisplay = ref(false);
-  const incorrectDisplay = ref(false);
-  const questionTime = ref(0);
-  const answerTime = ref(0);
-
-  // -----------------------------------------------------------------
-  // ★ 5. onSelected
-  // -----------------------------------------------------------------
+  // (onSelected は変更なし)
   const onSelected = (isCorrect: boolean) => {
-    // ★ 門番を修正 (displayState が "question" でないなら即終了)
     if (answerDisplay.value === true || displayState.value !== 'question') {
       return;
     }
-    
     answerTime.value = Date.now();
     answerDisplay.value = true;
     if (isCorrect) {
@@ -220,8 +272,6 @@
       incorrectCount.value++;
       answerState.value = "不正解";
       incorrectDisplay.value = true;
-      
-      // タイムアップ判定
       if (count.value <= incorrectCount.value * 5){
           if (displayState.value === "question") { 
             handleGameEnd();
@@ -229,12 +279,7 @@
         return; 
       };
     }
-    
-    // (setTimeout ロジック)
     const timeoutCallback = () => {
-        // ★ ゾンビタイマー対策: 
-        //    コールバックが実行された時に、
-        //    まだ "question" 画面か？ (リセットされてないか？) を確認
         if (displayState.value === 'question' && answerDisplay.value === true) {
             quizIndex.value++;
             questionTime.value = Date.now();
@@ -243,7 +288,6 @@
             incorrectDisplay.value = false;
         }
     };
-      
     if (answerTime.value < questionTime.value + 2000) {
       setTimeout(timeoutCallback, 3000 + questionTime.value - answerTime.value);
     } else {
@@ -251,35 +295,40 @@
     };
   };
 
-  // -----------------------------------------------------------------
-  // ★ 6. playAgain / onQuit (UIリセットを追加)
-  // -----------------------------------------------------------------
+  // ★★★
+  // 修正点 3： playAgain / onQuit でタイマーを停止・再開
+  // ★★★
   const playAgain = () => {
-    // (countdown() の呼び出しは削除)
+    if (timerId) clearInterval(timerId); // ★ 停止
+
     displayState.value = "menu";
     quizIndex.value = 0;
     correctCount.value = 0;
     incorrectCount.value = 0;
-    shuffledNumber.value = randomIndex.map(arr => getRandomArray(arr, arr.length));
+    const randomIndex = quizData.value.map((qs: Quiz[]) => Array.from({ length: qs.length }, (_, i) => i));
+    shuffledNumber.value = randomIndex.map((arr: number[]) => getRandomArray(arr, arr.length));
     ranking_view.value=[];
-    
-    // ★ 不足していたUIリセット
     answerDisplay.value = false;
     correctDisplay.value = false;
     incorrectDisplay.value = false;
+
+    countdown(); // ★ 再開
   };
 
   const onQuit = () => {
-    // (countdown() の呼び出しは削除)
+    if (timerId) clearInterval(timerId); // ★ 停止
+
     displayState.value = "menu";
     quizIndex.value = 0;
     correctCount.value = 0;
     incorrectCount.value = 0;
-    shuffledNumber.value = randomIndex.map(arr => getRandomArray(arr, arr.length));
-    
-    // ★ 不足していたUIリセット
+    const randomIndex = quizData.value.map((qs: Quiz[]) => Array.from({ length: qs.length }, (_, i) => i));
+    shuffledNumber.value = randomIndex.map((arr: number[]) => getRandomArray(arr, arr.length));
+    ranking_view.value=[];
     answerDisplay.value = false;
     correctDisplay.value = false;
     incorrectDisplay.value = false;
+
+    countdown(); // ★ 再開
   };
 </script>
