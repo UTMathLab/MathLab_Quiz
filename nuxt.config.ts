@@ -35,4 +35,11 @@ export default defineNuxtConfig({
     dir: "dist",
     fallback: true,
   },
+
+  runtimeConfig: {
+    public: {
+      gasUrl: process.env.NUXT_PUBLIC_GAS_URL || '',
+      quizDataUrl: process.env.NUXT_PUBLIC_QUIZ_DATA_URL || '' // ★ この行を追加
+    }
+  },
 })
