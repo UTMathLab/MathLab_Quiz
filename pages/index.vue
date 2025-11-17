@@ -7,236 +7,279 @@
   </div>
 </template>
 
+<!-- pages/index.vue の <script setup> の中身を、以下で丸ごと置き換え -->
+
 <script setup lang="ts">
-  import {ref} from 'vue'
-  import {getRandomArray} from "../composables/utils";
-  import {quizData} from "../composables/quizData";
+  import { ref, onMounted } from 'vue'
+  import { getRandomArray } from "../composables/utils";
+  import { quizData } from "../composables/quizData";
+  
   import { initializeApp } from "firebase/app";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-  import firebase from 'firebase/compat/app';
-  import 'firebase/compat/firestore';
+  import { getFirestore, collection, addDoc, query, where, orderBy, limit, getDocs } from "firebase/firestore";
+
   // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyD1LeqIBFxE6wU2gE2xDTeSV_O4xTQSazw",
-    authDomain: "kf75-8d355.firebaseapp.com",
-    projectId: "kf75-8d355",
-    storageBucket: "kf75-8d355.firebasestorage.app",
-    messagingSenderId: "385498511746",
-    appId: "1:385498511746:web:9fc5581c8479ac83abf79b"
+    apiKey: "AIzaSyCNCFq6bjmPkrNjnNy-pm4JTyoIIIb7G6I",
+    authDomain: "mathlab-quiz.firebaseapp.com",
+    projectId: "mathlab-quiz",
+    storageBucket: "mathlab-quiz.firebasestorage.app",
+    messagingSenderId: "15973731988",
+    appId: "1:15973731988:web:02e3f5fd0848dfb784ae81",
+    measurementId: "G-4XGRENY9QF"
   };
 
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore()
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
   type DisplayState = "question" | "result" | "menu";
   const displayState = ref<DisplayState>("menu");
+  const isLoadingRanking = ref(false);
+  
+  const createWhenObject = (playtime: Date) => {
+    const year = playtime.getFullYear();
+    const month = playtime.getMonth() + 1;
+    const day = playtime.getDate();
+    const hour = playtime.getHours();
+    const minute = playtime.getMinutes();
+    
+    // ★★★
+    // 修正点：秒 (getSeconds) を追加
+    // ★★★
+    const second = playtime.getSeconds(); 
+    
+    // ★ sortdata の計算に「*100 + second」を追加
+    const sortdata = year * 10000000000 + // (0を2つ追加)
+                     month * 100000000 +  // (0を2つ追加)
+                     day * 1000000 +    // (0を2つ追加)
+                     hour * 10000 +     // (0を2つ追加)
+                     minute * 100 + 
+                     second; // ★ 秒を追加
+                     
+    return { year, month, day, hour, minute, 
+             // ★ second も返すが、sortdata があれば不要
+             sortdata: sortdata 
+           };
+  };
 
   const randomIndex = quizData.map(qs => Array.from({ length: qs.length }, (_, i) => i));
   const shuffledNumber = ref(randomIndex.map(arr => getRandomArray(arr, arr.length)));
-  // const shuffledNumber = ref([getRandomArray(randomIndex[0], 21), getRandomArray(randomIndex[1], 21), getRandomArray(randomIndex[2], 21)]);
 
   const quizLevel= ref(0);
   const Levels = [["6級", "小中学生初級", "制限時間：60秒"],["5級","小中学生上級","制限時間：60秒"],["4級","高校生初級","制限時間：60秒"],["3級", "高校生上級", "制限時間：60秒"],["2級","大学生初級","制限時間：60秒"],["1級","大学生上級","制限時間：60秒"]];
-  const ranking=ref([]);
-  const ranking_view=ref([]);
+  const ranking_view=ref<any[]>([]);
+  
+  // -----------------------------------------------------------------
+  // ★ 1. ランキング取得 (Firebase)
+  // -----------------------------------------------------------------
+  const fetchRanking = async (level: number, userResult: any | null = null) => {
+    // isLoadingRanking.value = true; // (もし isLoading を使う場合は、ここを有効化)
+    
+    try {
+      const q = query(
+        collection(db, "kf75"), 
+        where('level', '==', level),
+        orderBy('score', 'desc'), // 第1キー：スコア（降順）
+        
+        // ★★★
+        // 修正点：第2キーとして「達成日時(sortdata)」の「昇順(asc)」を追加
+        // これで、達成日時が古い方（時間が遅い方）が上になります
+        // ★★★
+        orderBy('when.sortdata', 'asc'), 
+        
+        limit(6)
+      );
+      
+      const querySnapshot = await getDocs(q);
+      
+      const newRankingView: any[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        let color = "black";
+        if (userResult && 
+            data.when.sortdata === userResult.when.sortdata &&
+            data.score === userResult.score) {
+          color = "red";
+        }
+        newRankingView.push({ score: data.score, when: data.when, color: color });
+      });
+      
+      ranking_view.value = newRankingView;
+      
+    } catch (error) {
+      console.error("Firebaseの読み込みエラー:", error);
+      ranking_view.value = [];
+    } finally {
+      // isLoadingRanking.value = false; // (もし isLoading を使う場合は、ここを有効化)
+    }
+  };
+
+  // -----------------------------------------------------------------
+  // ★ 2. ゲーム終了処理 (Firebase)
+  // -----------------------------------------------------------------
+  const handleGameEnd = async () => {
+    if (displayState.value !== "question") return; 
+
+    displayState.value = "result";
+    // (タイマー停止は、setInterval 側が displayState を見て自動で停止する)
+    count.value = 60; // カウントリセット
+    
+    const playtime = new Date();
+    const newScoreData = {
+      level: quizLevel.value,
+      score: correctCount.value, 
+      when: createWhenObject(playtime)
+    };
+
+    try {
+      await addDoc(collection(db, "kf75"), newScoreData);
+    } catch (error) {
+      console.error("Firebaseへの書き込みエラー:", error);
+    } finally {
+      // 書き込み後、最新ランキングを読み込む
+      await fetchRanking(newScoreData.level, newScoreData);
+    }
+  };
+
+  // -----------------------------------------------------------------
+  // ★ 3. onLevelSelected
+  // -----------------------------------------------------------------
   const onLevelSelected = (level:number) => {
     quizLevel.value = level;
     displayState.value = "question";
     shuffledNumber.value = randomIndex.map(arr => getRandomArray(arr, arr.length));
-    count.value = 60;
+    count.value = 60; 
     questionTime.value = Date.now();
-    db.collection("kf75").where('level', '==',quizLevel.value ).where('when.day','==',24).get().then((docs) => {
-      if (docs) {
-        docs.forEach(doc => {ranking.value.push(doc.data())})
-      }            
-      // const playtime=new Date();
-      // playtime.toString();
-      // result.push({level:quizLevel.value,score:correctCount.value,when:playtime,color:"red"})
-      // console.log(result);
-    }).catch(error => {
-    // error
-    })
+    
+    // (ゲーム開始時は、ランキングを読み込まない)
+    // (Firebaseの「リアルタイム更新」を使わない限り、
+    //  ここで読んでも "今" のランキングは取れないため)
+    ranking_view.value = [];
   }
 
   const quizIndex = ref(0);
   const correctCount = ref(0);
   const incorrectCount = ref(0);
   const answerState = ref<"正解！" | "不正解" >(null as any);
-
-  const count=ref(6.000);
+  const count = ref(60);
+  
+  // (タイマーIDは不要)
+  
+  // -----------------------------------------------------------------
+  // ★ 4. countdown (元の「正しい」ロジックに戻す)
+  // -----------------------------------------------------------------
   const countdown = () => {
     setInterval(() => {
-      if (displayState.value === "question" && count.value > 0) {
-        count.value--;
-      };
-      if (count.value <= incorrectCount.value*5){//タイムアップ時の処理1
-        const playtime=new Date();
-        playtime.toLocaleString;
-        ranking.value.push({//データ整理
-          level:quizLevel.value,
-          score:correctCount.value,
-          when:{
-            year:playtime.getFullYear(),
-            month:playtime.getMonth()+1,
-            day:playtime.getDate(),
-            hour:playtime.getHours(),
-            minute:playtime.getMinutes(),
-            sortdata:playtime.getFullYear()*100000000+playtime.getMonth()*1000000+playtime.getDate()*10000+playtime.getHours()*100+playtime.getMinutes(),
-          },
-          color:"red",
-        });
-        ranking.value.sort((a,b)=>b.when.sortdata-a.when.sortdata);
-        ranking.value.sort((a,b)=>b.score-a.score);
-        for(let i=0;i<Math.min(ranking.value.length,6);i++){//表示用のデータ作成
-          ranking_view.value.push({
-            score:ranking.value[i].score,
-            when:ranking.value[i].when,
-            color:ranking.value[i].color,
-          });
+      // ★ 門番： "question" 画面で、かつ "result" 処理中でない時だけ動く
+      if (displayState.value === "question") {
+        
+        // タイムアップ判定
+        if (count.value <= incorrectCount.value * 5){
+          if (displayState.value === "question") { 
+            handleGameEnd();
+          }
+          return;
         }
-
-        displayState.value = "result"
-        count.value = 60;
-
-        console.log(ranking_view.value);
-
-        db.collection("kf75").add({
-          level:quizLevel.value,
-          score: correctCount.value,
-          when:{
-            year:playtime.getFullYear(),
-            month:playtime.getMonth()+1,
-            day:playtime.getDate(),
-            hour:playtime.getHours(),
-            minute:playtime.getMinutes(),
-            sortdata:playtime.getFullYear()*100000000+playtime.getMonth()*1000000+playtime.getDate()*10000+playtime.getHours()*100+playtime.getMinutes(),
-          },
-          color:"black",
-        })
-        .then((doc) => {
-          console.log(`追加成功`);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      };
+        
+        // カウントダウン
+        if (count.value > 0) {
+          count.value--;
+        };
+      }
     }, 1000);
   };
 
+  // ★ 元のコード通り onMounted で「1回だけ」呼び出す
   onMounted(() => {
     countdown();
   })
 
+  // (answerDisplay などの ref)
   const answerDisplay = ref(false);
   const correctDisplay = ref(false);
   const incorrectDisplay = ref(false);
   const questionTime = ref(0);
   const answerTime = ref(0);
 
+  // -----------------------------------------------------------------
+  // ★ 5. onSelected
+  // -----------------------------------------------------------------
   const onSelected = (isCorrect: boolean) => {
-    if (answerDisplay.value === false && count.value > 0) {
-      answerTime.value = Date.now();
-      answerDisplay.value = true;
-      if (isCorrect) {
-        correctCount.value++;
-        answerState.value = "正解！";
-        correctDisplay.value = true;
-      } else {
-        incorrectCount.value++;
-        answerState.value = "不正解";
-        incorrectDisplay.value = true;
-        if (count.value <= incorrectCount.value*5){//タイムアップ時の処理2
-        const playtime=new Date();
-        playtime.toLocaleString;
-        ranking.value.push({//データ整理
-          level:quizLevel.value,
-          score:correctCount.value,
-          when:{
-            year:playtime.getFullYear(),
-            month:playtime.getMonth()+1,
-            day:playtime.getDate(),
-            hour:playtime.getHours(),
-            minute:playtime.getMinutes(),
-            sortdata:playtime.getFullYear()*100000000+playtime.getMonth()*1000000+playtime.getDate()*10000+playtime.getHours()*100+playtime.getMinutes(),
-          },
-          color:"red",
-        });
-        ranking.value.sort((a,b)=>b.when.sortdata-a.when.sortdata);
-        ranking.value.sort((a,b)=>b.score-a.score);
-        for(let i=0;i<Math.min(ranking.value.length,6);i++){//表示用のデータ作成
-          ranking_view.value.push({
-            score:ranking.value[i].score,
-            when:ranking.value[i].when,
-            color:ranking.value[i].color,
-          });
+    // ★ 門番を修正 (displayState が "question" でないなら即終了)
+    if (answerDisplay.value === true || displayState.value !== 'question') {
+      return;
+    }
+    
+    answerTime.value = Date.now();
+    answerDisplay.value = true;
+    if (isCorrect) {
+      correctCount.value++;
+      answerState.value = "正解！";
+      correctDisplay.value = true;
+    } else {
+      incorrectCount.value++;
+      answerState.value = "不正解";
+      incorrectDisplay.value = true;
+      
+      // タイムアップ判定
+      if (count.value <= incorrectCount.value * 5){
+          if (displayState.value === "question") { 
+            handleGameEnd();
+          }
+        return; 
+      };
+    }
+    
+    // (setTimeout ロジック)
+    const timeoutCallback = () => {
+        // ★ ゾンビタイマー対策: 
+        //    コールバックが実行された時に、
+        //    まだ "question" 画面か？ (リセットされてないか？) を確認
+        if (displayState.value === 'question' && answerDisplay.value === true) {
+            quizIndex.value++;
+            questionTime.value = Date.now();
+            answerDisplay.value = false;
+            correctDisplay.value = false;
+            incorrectDisplay.value = false;
         }
-
-        displayState.value = "result"
-        count.value = 60;
-        
-        console.log(ranking_view.value);
-
-        db.collection("kf75").add({
-          level:quizLevel.value,
-          score: correctCount.value,
-          when:{
-            year:playtime.getFullYear(),
-            month:playtime.getMonth()+1,
-            day:playtime.getDate(),
-            hour:playtime.getHours(),
-            minute:playtime.getMinutes(),
-            sortdata:playtime.getFullYear()*100000000+playtime.getMonth()*1000000+playtime.getDate()*10000+playtime.getHours()*100+playtime.getMinutes(),
-          },
-          color:"black",
-        })
-        .then((doc) => {
-          console.log(`追加成功`);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      };
-      }
-      if (answerTime.value < questionTime.value + 2000) {
-        setTimeout(() => {
-          quizIndex.value++;
-          questionTime.value = Date.now();
-          answerDisplay.value = false;
-          correctDisplay.value = false;
-          incorrectDisplay.value = false;
-        }, 3000 + questionTime.value - answerTime.value);
-      } else {
-        setTimeout(() => {
-          quizIndex.value++;
-          questionTime.value = Date.now();
-          answerDisplay.value = false;
-          correctDisplay.value = false;
-          incorrectDisplay.value = false;
-        }, 1000);
-      };
+    };
+      
+    if (answerTime.value < questionTime.value + 2000) {
+      setTimeout(timeoutCallback, 3000 + questionTime.value - answerTime.value);
+    } else {
+      setTimeout(timeoutCallback, 1000);
     };
   };
 
-
-
+  // -----------------------------------------------------------------
+  // ★ 6. playAgain / onQuit (UIリセットを追加)
+  // -----------------------------------------------------------------
   const playAgain = () => {
+    // (countdown() の呼び出しは削除)
     displayState.value = "menu";
     quizIndex.value = 0;
     correctCount.value = 0;
     incorrectCount.value = 0;
     shuffledNumber.value = randomIndex.map(arr => getRandomArray(arr, arr.length));
-    ranking.value=[];
-    // ranking_view.value=[];
+    ranking_view.value=[];
+    
+    // ★ 不足していたUIリセット
+    answerDisplay.value = false;
+    correctDisplay.value = false;
+    incorrectDisplay.value = false;
   };
 
-  // Add this handler for the quit event
   const onQuit = () => {
+    // (countdown() の呼び出しは削除)
     displayState.value = "menu";
     quizIndex.value = 0;
     correctCount.value = 0;
     incorrectCount.value = 0;
     shuffledNumber.value = randomIndex.map(arr => getRandomArray(arr, arr.length));
+    
+    // ★ 不足していたUIリセット
+    answerDisplay.value = false;
+    correctDisplay.value = false;
+    incorrectDisplay.value = false;
   };
 </script>
