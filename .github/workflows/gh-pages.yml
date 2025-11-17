@@ -23,18 +23,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: "24"
-
+          node-version: "24" 
       - name: Install dependencies
         run: yarn install
 
       - name: Build the project
         run: yarn generate
+        env:
+          NUXT_PUBLIC_QUIZ_DATA_URL: ${{ secrets.NUXT_PUBLIC_QUIZ_DATA_URL }}
+          NUXT_PUBLIC_GAS_URL: ${{ secrets.NUXT_PUBLIC_GAS_URL }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./.output/public
           publish_branch: gh-pages
           force_orphan: true
