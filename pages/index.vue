@@ -60,7 +60,7 @@
   import { getRandomArray } from "../composables/utils";
   
   import { initializeApp } from "firebase/app";
-  import { getFirestore, collection, addDoc, query, where, orderBy, limit, getDocs } from "firebase/firestore";
+  import { getFirestore, collection, addDoc, query, where, orderBy, limit, getDocs, doc, getDoc } from "firebase/firestore";
 
   type Quiz = {
     quizNumber: number;
@@ -100,30 +100,45 @@
   let timerId: any = null;
 
   // ★ onMounted (クイズデータ取得 と タイマー開始)
-  onMounted(() => {
-    // 1. タイマーを開始
-    countdown(); 
+  onMounted(async () => {
+    countdown(); // タイマー開始
 
-    // 2. クイズデータをロード
-    useFetch<Quiz[][]>(quizDataUrl, {
-      onResponse({ response }) {
-        const data = response._data;
-        quizData.value = data; 
-        const randomIndex = data.map((qs: Quiz[]) => Array.from({ length: qs.length }, (_, i) => i));
-        shuffledNumber.value = randomIndex.map((arr: number[]) => getRandomArray(arr, arr.length));
-        isQuizLoading.value = false;
-      },
-      onError(error) {
-        console.error("Failed to fetch quiz data:", error);
-        isQuizLoading.value = false;
-      }
-    });
+    isQuizLoading.value = true;
+    try {
+      // 1. 読み込むドキュメントの「参照」を配列として作成
+      const levels = ["level-0", "level-1", "level-2", "level-3", "level-4", "level-5"];
+      const levelPromises = levels.map(levelId => {
+        return getDoc(doc(db, "quizzes", levelId));
+      });
+      
+      // 2. 6レベルのデータを「並行して」読み込む
+      const levelSnapshots = await Promise.all(levelPromises);
+      
+      // 3. データを quizData.value に整形
+      const allQuizData: Quiz[][] = [];
+      levelSnapshots.forEach(snapshot => {
+        if (snapshot.exists()) {
+          // ★ "data" フィールド (配列) を取り出す
+          allQuizData.push(snapshot.data().data as Quiz[]); 
+        } else {
+          console.error(`Error: Document ${snapshot.id} not found!`);
+          allQuizData.push([]); // データが見つからなかったレベル
+        }
+      });
+      
+      quizData.value = allQuizData;
+
+      // 4. shuffledNumber を初期化
+      const randomIndex = quizData.value.map((qs: Quiz[]) => Array.from({ length: qs.length }, (_, i) => i));
+      shuffledNumber.value = randomIndex.map((arr: number[]) => getRandomArray(arr, arr.length));
+
+    } catch (error) {
+      console.error("Failed to fetch quiz data from Firestore:", error);
+    } finally {
+      isQuizLoading.value = false;
+    }
   });
 
-  // ★★★
-  // 修正点 1： onUnmounted フックを追加
-  // (開発リロード時やページ移動時にタイマーを停止する)
-  // ★★★
   onUnmounted(() => {
     if (timerId) {
       clearInterval(timerId);
