@@ -35,4 +35,11 @@ export default defineNuxtConfig({
     dir: "dist",
     fallback: true,
   },
+
+  runtimeConfig: {
+    public: {
+      // ↓ この行を追加（もしpublicブロックが既にあれば、その中に追加）
+      gasUrl: process.env.NUXT_PUBLIC_GAS_URL || ''
+    }
+  }
 })

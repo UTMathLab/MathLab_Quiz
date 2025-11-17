@@ -1,7 +1,7 @@
 <template>
     <o-popup>
       <a-result-header class="a-head"/>
-      <a-result-detail :correct-count="correctCount" :ranking="ranking"/>
+      <a-result-detail :correct-count="correctCount" :ranking="ranking" :is-loading="isLoading" />
       <o-result-buttons :correct-count="correctCount" @select="emit('select')" />
     </o-popup>
   </template>
@@ -10,6 +10,7 @@
     type Props = {
       correctCount: number;
       ranking: ranking_view[];
+      isLoading: Boolean
     };
     type ranking_view={
         when: {
